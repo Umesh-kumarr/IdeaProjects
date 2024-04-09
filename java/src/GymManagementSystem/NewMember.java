@@ -18,7 +18,7 @@ public class NewMember extends JFrame implements ActionListener {
     JTextField nameTextField , mnoTextField , fnameTextField , mnameTextField,emTextField ,adhaarTextField,
     ageTextField ,amountTextField ;
 
-    long random;
+    int random;
 
     JComboBox amt , amt1;
 
@@ -63,7 +63,7 @@ public class NewMember extends JFrame implements ActionListener {
         add(nm);
 
         Random ran = new Random();
-        int random = Math.abs(ran.nextInt() % 900 + 1);
+        random = Math.abs(ran.nextInt() % 900 + 1);
 
         JLabel Mid = new JLabel("Member Id :" + random);
         Mid.setBounds(100, 120,600,90);
@@ -245,7 +245,7 @@ public class NewMember extends JFrame implements ActionListener {
 
 
         String sfname = fnameTextField.getText();
-        String smname = fnameTextField.getText();
+        String smname = mnameTextField.getText();
         String stime = null;
         if(a.isSelected()){
             stime = "8Am-10Am";

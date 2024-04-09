@@ -1,9 +1,13 @@
 package GymManagementSystem;
 
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ListOfMembers extends JFrame {
 
@@ -13,8 +17,8 @@ public class ListOfMembers extends JFrame {
 
     ListOfMembers(){
         setLayout(null);
-        JFrame jf = new JFrame();
-        jf.setSize(1650,1080);
+        JPanel panel = new JPanel();
+        panel.setSize(1650,1080);
         setSize(1650,1080);
 //        setLocation(350, 10);
         setVisible(true);
@@ -53,10 +57,26 @@ public class ListOfMembers extends JFrame {
         String[][] data = {};
         String[] columnnames = {"id " , "Name"};
 
-        j = new JTable(data , columnnames);
-        j.setBounds(900, 40 , 200 , 300);
+        j = new JTable();
+        j.setBounds(90, 40 , 200 , 300);
+        j.setBackground(new Color(3 ,45,48));
+        j.setForeground(Color.black);
+        panel.add(j);
 
-        JScrollPane sp = new JScrollPane(j);
+
+
+        try {
+
+            GymDBConnection cb = new GymDBConnection();
+            String Memberinfo = ("Select*from Member");
+
+            PreparedStatement ps = cb.conn.prepareStatement(Memberinfo);
+            ps.executeQuery();
+            j.setModel(DbUtils.resultSetToTableModel(ps.executeQuery()));
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
 
 
 

@@ -212,6 +212,43 @@ public class UpdateDeleteMember extends JFrame implements ActionListener {
         update.setFont(new Font("RALEWAY" , Font.BOLD, 15));
         add(update);
         setVisible(true);
+        update.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String id = memberidTextField.getText();
+                String name = nameTextField.getText();
+                String mobileno = mnoTextField.getText();
+                String email = emTextField.getText();
+
+                String fathername = fnameTextField.getText();
+                String mothername =mnameTextField.getText();
+
+
+                String aadharno = adhaarTextField.getText();
+                String age = ageTextField.getText();
+                String amount = amountTextField.getText();
+                try {
+                    GymDBConnection cb = new GymDBConnection();
+                    PreparedStatement ps = cb.conn.prepareStatement("update member set Name=? ,MobileNumber=? , email=? ,fathername=? , mothername=? , aadharnumber=? , age=? , amount=? where id=? ");
+                    ps.setString(1,name);
+                    ps.setString(2,mobileno);
+                    ps.setString(3,email);
+                    ps.setString(4,fathername);
+                    ps.setString(5,mothername);
+                    ps.setString(6,aadharno);
+                    ps.setString(7,age);
+                    ps.setString(8,amount);
+                    ps.setString(9,id);
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Successfully Updated");
+                    setVisible(false);
+                    new UpdateDeleteMember().setVisible(true);
+                }
+                catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,ex);
+                }
+            }
+        });
 
 
         delete= new JButton("Delete");
